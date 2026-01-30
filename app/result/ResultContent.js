@@ -160,15 +160,16 @@ export default function ResultContent() {
     resetFilters,
   } = useFiltersStore();
 
-  // Reset filters when search params change (new search)
+  // Reset filters and compare selection when search params change (new search)
   const searchKey = params ? `${params.from}-${params.to}-${params.date}` : null;
   const prevSearchKeyRef = useRef(null);
   useEffect(() => {
     if (!searchKey) return;
 
-    // If this is a different search than before, reset filters
+    // If this is a different search than before, reset filters and clear compare
     if (searchKey !== prevSearchKeyRef.current) {
       resetFilters();
+      useCompareStore.getState().clearSelection();
     }
     // Always update the ref to track current search
     prevSearchKeyRef.current = searchKey;
