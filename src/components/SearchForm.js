@@ -196,7 +196,7 @@ export default function SearchForm() {
                   width: { xs: "100%", sm: "auto" },
                   height: 56,
                   border: "0.5px solid",
-                  borderColor: "#0d9488",
+                  borderColor: "primary.main",
                   borderRadius: 1
                 }}
               >
