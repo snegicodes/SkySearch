@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   AppBar,
@@ -30,6 +31,11 @@ import {
   ExpandLess,
   SwapHoriz,
 } from "@mui/icons-material";
+
+const LOGO_URL =
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo.png";
+const LOGO_DARK_URL =
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark.png";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -154,38 +160,120 @@ export default function ResultHeaderForm({
         color: "text.primary",
       }}
     >
-      <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1.5 }}>
-        <Box sx={{ flex: 1, display: "flex", alignItems: "center", gap: 1, minWidth: 0 }}>
-          <Button
-            component={Link}
-            href="/#search-section"
-            size="small"
-            sx={{ textTransform: "none", fontWeight: 600, color: "text.primary" }}
+      <Toolbar
+        sx={{
+          flexWrap: "nowrap",
+          gap: { xs: 0.5, sm: 1 },
+          px: { xs: 1, sm: 2 },
+          py: { xs: 1, sm: 1.5 },
+          minHeight: { xs: 56, sm: 64 },
+        }}
+      >
+        {/* Left: logo + (modify + filter on mobile) / spacer (desktop) */}
+        <Box
+          sx={{
+            flex: { xs: "1 1 0%", md: 1 },
+            minWidth: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: { xs: 0.5, sm: 1 },
+            overflow: "hidden",
+            justifyContent: { xs: "space-between", md: "flex-start" },
+          }}
+        >
+          <Link
+            href="/"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              lineHeight: 0,
+              flexShrink: 0,
+            }}
           >
-            Modify search
-          </Button>
-          {/* <Button
-            size="small"
-            onClick={() => setFormExpanded((e) => !e)}
-            endIcon={formExpanded ? <ExpandLess /> : <ExpandMore />}
-            sx={{ textTransform: "none", fontWeight: 600 }}
+            <Image
+              src={theme.palette.mode === "dark" ? LOGO_DARK_URL : LOGO_URL}
+              alt="SkySearch"
+              width={160}
+              height={40}
+              style={{
+                height: "clamp(28px, 8vw, 40px)",
+                width: "auto",
+                maxHeight: 40,
+              }}
+              priority
+              sizes="(max-width: 600px) 120px, 160px"
+            />
+          </Link>
+          <Stack
+            direction="row"
+            spacing={0.5}
+            alignItems="center"
+            sx={{ display: { xs: "flex", md: "none" }, flexShrink: 0 }}
           >
-            {origin || "From"} → {destination || "To"}
-          </Button> */}
-          {isMobile && (
+            <Button
+              component={Link}
+              href="/#search-section"
+              size="small"
+              sx={{
+                textTransform: "none",
+                fontWeight: 600,
+                color: "text.primary",
+                px: 1,
+                minHeight: 44,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Modify
+            </Button>
             <IconButton
               onClick={onToggleSidebar}
               color={sidebarOpen ? "primary" : "default"}
-              size="small"
               aria-label="Toggle filters"
+              sx={{
+                minWidth: 44,
+                minHeight: 44,
+                p: 0,
+              }}
             >
-              <FilterList />
+              <FilterList fontSize="small" />
             </IconButton>
-          )}
+          </Stack>
         </Box>
 
-        <Stack direction="row" spacing={0.5} alignItems="center">
-          <ThemeToggle />
+        {/* Center (desktop only): Modify search */}
+        <Box
+          sx={{
+            flex: 1,
+            display: { xs: "none", md: "flex" },
+            justifyContent: "center",
+            alignItems: "center",
+            minWidth: 0,
+          }}
+        >
+          <Button
+            component={Link}
+            href="/#search-section"
+            size="medium"
+            sx={{ textTransform: "none", fontWeight: 600, color: "text.primary" }}
+          >
+            Modify Search 
+          </Button>
+        </Box>
+
+        {/* Right: theme, filters (desktop), compare */}
+        <Stack
+          direction="row"
+          spacing={{ xs: 0, sm: 0.5 }}
+          alignItems="center"
+          sx={{
+            flex: { xs: "0 0 auto", md: 1 },
+            justifyContent: "flex-end",
+            minWidth: 0,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", minWidth: 44, minHeight: 44 }}>
+            <ThemeToggle />
+          </Box>
           {!isMobile && (
             <IconButton
               onClick={onToggleSidebar}
@@ -196,9 +284,17 @@ export default function ResultHeaderForm({
               <FilterList />
             </IconButton>
           )}
-          <IconButton onClick={onOpenCompare} aria-label="Compare flights" size="small">
+          <IconButton
+            onClick={onOpenCompare}
+            aria-label="Compare flights"
+            sx={{
+              minWidth: 44,
+              minHeight: 44,
+              p: 0,
+            }}
+          >
             <Badge badgeContent={compareCount} color="primary">
-              <CompareArrows />
+              <CompareArrows fontSize="small" />
             </Badge>
           </IconButton>
         </Stack>
