@@ -68,6 +68,8 @@ body {
 .grid-bg {
   position: absolute;
   inset: 0;
+  bottom: auto;
+  height: 100vh;
   background-image:
     linear-gradient(var(--grid-line) 1.5px, transparent 1.5px),
     linear-gradient(90deg, var(--grid-line) 1.5px, transparent 1.5px);
@@ -75,6 +77,7 @@ body {
   mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 70%);
   animation: grid-drift 25s ease-in-out infinite;
+  pointer-events: none;
 }
 
 @keyframes grid-drift {
