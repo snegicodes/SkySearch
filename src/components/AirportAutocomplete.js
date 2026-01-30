@@ -93,7 +93,7 @@ export default function AirportAutocomplete({
       getOptionLabel={getOptionLabel}
       filterOptions={(x) => x}
       isOptionEqualToValue={(option, value) =>
-        option.iataCode === value.iataCode
+        value != null && option.iataCode === value.iataCode
       }
       renderInput={(params) => (
         <TextField

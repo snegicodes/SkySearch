@@ -76,11 +76,12 @@ export function calculateBestScore(
   minDuration,
   maxDuration
 ) {
+  if (!flight?.price || typeof flight.price.amount !== "number") return 0;
   const priceRange = maxPrice - minPrice || 1;
   const durationRange = maxDuration - minDuration || 1;
   const priceScore = 1 - (flight.price.amount - minPrice) / priceRange;
   const durationScore =
-    1 - (flight.durationMinutes - minDuration) / durationRange;
+    1 - ((flight.durationMinutes ?? 0) - minDuration) / durationRange;
   return 0.6 * priceScore + 0.4 * durationScore;
 }
 
@@ -91,7 +92,7 @@ export function calculateBestScore(
  * @returns {'low' | 'average' | 'high'}
  */
 export function getPriceConfidence(flight, allFlights) {
-  if (!allFlights?.length) return "average";
+  if (!flight || !allFlights?.length) return "average";
   const sorted = [...allFlights].sort(
     (a, b) => a.price.amount - b.price.amount
   );

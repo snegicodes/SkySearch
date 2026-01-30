@@ -23,17 +23,22 @@ export function MUIThemeProvider({ children }) {
         palette: {
           mode: isDark ? "dark" : "light",
           primary: {
-            main: isDark ? "#2dd4bf" : "#0d9488", // teal
-            light: isDark ? "#5eead4" : "#2dd4bf", // teal-light
-            dark: isDark ? "#14b8a6" : "#0f766e", // teal-dark
+            main: "#e05d38", // tangerine
+            light: "#ea7a5c",
+            dark: "#c44d2a",
+            contrastText: "#ffffff",
+          },
+          secondary: {
+            main: isDark ? "#2a303e" : "#3d4554",
+            contrastText: isDark ? "#e5e5e5" : "#1c2433",
           },
           background: {
-            default: isDark ? "#0a0e10" : "#fafcfc",
-            paper: isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)",
+            default: isDark ? "#1c2433" : "#f8f6f5",
+            paper: isDark ? "#2a303e" : "#ffffff",
           },
           text: {
-            primary: isDark ? "#e6eaed" : "#0c1214",
-            secondary: isDark ? "rgba(230, 234, 237, 0.7)" : "rgba(12, 18, 20, 0.7)",
+            primary: isDark ? "#e5e5e5" : "#1c2433",
+            secondary: isDark ? "rgba(229, 229, 229, 0.7)" : "rgba(28, 36, 51, 0.7)",
           },
           divider: isDark
             ? "rgba(255, 255, 255, 0.06)"
@@ -62,10 +67,10 @@ export function MUIThemeProvider({ children }) {
                 transition: "all 0.2s ease",
               },
               contained: {
-                backgroundColor: isDark ? "#2dd4bf" : "#0d9488",
-                color: isDark ? "#0a0e10" : "#ffffff",
+                backgroundColor: "#e05d38",
+                color: "#ffffff",
                 "&:hover": {
-                  backgroundColor: isDark ? "#5eead4" : "#0f766e",
+                  backgroundColor: "#ea7a5c",
                 },
               },
             },
@@ -86,12 +91,10 @@ export function MUIThemeProvider({ children }) {
                     borderWidth: 1.5,
                   },
                   "&:hover fieldset": {
-                    borderColor: isDark
-                      ? "rgba(45, 212, 191, 0.4)"
-                      : "rgba(13, 148, 136, 0.4)",
+                    borderColor: "rgba(224, 93, 56, 0.4)",
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: isDark ? "#2dd4bf" : "#0d9488",
+                    borderColor: "#e05d38",
                     borderWidth: 2,
                   },
                 },
@@ -115,12 +118,10 @@ export function MUIThemeProvider({ children }) {
                     borderWidth: 1.5,
                   },
                   "&:hover fieldset": {
-                    borderColor: isDark
-                      ? "rgba(45, 212, 191, 0.4)"
-                      : "rgba(13, 148, 136, 0.4)",
+                    borderColor: "rgba(224, 93, 56, 0.4)",
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: isDark ? "#2dd4bf" : "#0d9488",
+                    borderColor: "#e05d38",
                     borderWidth: 2,
                   },
                 },
@@ -147,7 +148,7 @@ export function MUIThemeProvider({ children }) {
                   isDark ? "rgba(255, 255, 255, 0.06)" : "rgba(0, 0, 0, 0.06)"
                 }`,
                 "&:hover": {
-                  borderColor: isDark ? "#2dd4bf" : "#0d9488",
+                  borderColor: "#e05d38",
                 },
                 transition: "border-color 0.2s ease",
               },
@@ -170,16 +171,14 @@ export function MUIThemeProvider({ children }) {
                 border: "none",
                 color: isDark ? "rgba(230, 234, 237, 0.7)" : "rgba(12, 18, 20, 0.7)",
                 "&.Mui-selected": {
-                  backgroundColor: isDark ? "#2dd4bf" : "#0d9488",
-                  color: isDark ? "#0a0e10" : "#ffffff",
+                  backgroundColor: "#e05d38",
+                  color: "#ffffff",
                   "&:hover": {
-                    backgroundColor: isDark ? "#5eead4" : "#0f766e",
+                    backgroundColor: "#ea7a5c",
                   },
                 },
                 "&:hover": {
-                  backgroundColor: isDark
-                    ? "rgba(45, 212, 191, 0.1)"
-                    : "rgba(13, 148, 136, 0.1)",
+                  backgroundColor: "rgba(224, 93, 56, 0.1)",
                 },
               },
             },
@@ -200,12 +199,10 @@ export function MUIThemeProvider({ children }) {
                   borderWidth: 1.5,
                 },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: isDark
-                    ? "rgba(45, 212, 191, 0.4)"
-                    : "rgba(13, 148, 136, 0.4)",
+                  borderColor: "rgba(224, 93, 56, 0.4)",
                 },
                 "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: isDark ? "#2dd4bf" : "#0d9488",
+                  borderColor: "#e05d38",
                   borderWidth: 2,
                 },
               },

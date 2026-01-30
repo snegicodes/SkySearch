@@ -96,7 +96,9 @@ export default function FiltersSidebar({ open, onClose, flights }) {
       </Typography>
       <Slider
         value={priceRange}
-        onChange={(_, value) => setPriceRange(value)}
+        onChange={(_, value) =>
+          setPriceRange(Array.isArray(value) ? value : [value, value])
+        }
         valueLabelDisplay="auto"
         valueLabelFormat={(v) => `$${v}`}
         min={minPrice}

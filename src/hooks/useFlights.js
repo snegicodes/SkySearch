@@ -46,7 +46,17 @@ export function useFlights(params) {
       });
       if (params.returnDate) searchParams.set("returnDate", params.returnDate);
       const res = await fetch(`/api/flights?${searchParams.toString()}`);
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const text = await res.text();
+        let message = text;
+        try {
+          const errJson = JSON.parse(text);
+          if (errJson?.error) message = errJson.error;
+        } catch {
+          if (text.length > 80) message = `${text.slice(0, 80)}…`;
+        }
+        throw new Error(message);
+      }
       const json = await res.json();
       setData(json.flights ?? []);
     } catch (err) {

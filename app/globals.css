@@ -16,37 +16,37 @@
   --indicator-success: #22c55e;
 }
 
-/* Minimal teal theme — few shades, subtle presence */
+/* Tangerine theme — primary #e05d38, dark base from palette */
 :root {
-  --background: #fafcfc;
-  --foreground: #0c1214;
-  --teal: #0d9488;
-  --teal-light: #2dd4bf;
-  --teal-dark: #0f766e;
-  --teal-muted: rgba(13, 148, 136, 0.12);
-  --teal-glow: rgba(13, 148, 136, 0.08);
+  --background: #f8f6f5;
+  --foreground: #1c2433;
+  --teal: #e05d38;
+  --teal-light: #ea7a5c;
+  --teal-dark: #c44d2a;
+  --teal-muted: rgba(224, 93, 56, 0.12);
+  --teal-glow: rgba(224, 93, 56, 0.08);
   --glass-bg: rgba(0, 0, 0, 0.02);
   --glass-border: rgba(0, 0, 0, 0.06);
   --grid-line: rgba(0, 0, 0, 0.03);
-  --grid-line-accent: rgba(13, 148, 136, 0.04);
-  --orb-teal: rgba(45, 212, 191, 0.06);
-  --gradient-bg: linear-gradient(165deg, #ffffff 0%, #fafcfc 50%, #f4f7f7 100%);
+  --grid-line-accent: rgba(224, 93, 56, 0.04);
+  --orb-teal: rgba(224, 93, 56, 0.06);
+  --gradient-bg: linear-gradient(165deg, #ffffff 0%, #f8f6f5 50%, #f0eeec 100%);
 }
 
 :root.dark {
-  --background: #0a0e10;
-  --foreground: #e6eaed;
-  --teal: #2dd4bf;
-  --teal-light: #5eead4;
-  --teal-dark: #14b8a6;
-  --teal-muted: rgba(45, 212, 191, 0.1);
-  --teal-glow: rgba(45, 212, 191, 0.12);
+  --background: #1c2433;
+  --foreground: #e5e5e5;
+  --teal: #e05d38;
+  --teal-light: #ea7a5c;
+  --teal-dark: #c44d2a;
+  --teal-muted: rgba(224, 93, 56, 0.1);
+  --teal-glow: rgba(224, 93, 56, 0.12);
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.06);
   --grid-line: rgba(255, 255, 255, 0.04);
-  --grid-line-accent: rgba(45, 212, 191, 0.05);
-  --orb-teal: rgba(45, 212, 191, 0.08);
-  --gradient-bg: linear-gradient(165deg, #0a0e10 0%, #0d1215 40%, #0a0e10 100%);
+  --grid-line-accent: rgba(224, 93, 56, 0.05);
+  --orb-teal: rgba(224, 93, 56, 0.08);
+  --gradient-bg: linear-gradient(165deg, #1c2433 0%, #2a303e 40%, #1c2433 100%);
 }
 
 @theme inline {
@@ -86,7 +86,7 @@ body {
   66% { transform: translate(-2px, 2px) scale(0.98); }
 }
 
-/* Hero gradient orb — minimal teal */
+/* Hero gradient orb — tangerine */
 .hero-orb {
   position: absolute;
   width: min(80vw, 600px);

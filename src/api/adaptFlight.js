@@ -26,7 +26,7 @@ export function adaptAmadeusResponse(response) {
   const carriers = response.dictionaries?.carriers || {};
 
   return response.data
-    .map((offer) => {
+    .map((offer, index) => {
       const itinerary = offer.itineraries?.[0];
       if (!itinerary) return null;
 
@@ -48,7 +48,7 @@ export function adaptAmadeusResponse(response) {
         Math.round((arrivalTime - departureTime) / (1000 * 60));
 
       return {
-        id: offer.id,
+        id: offer.id ?? `flight-${index}`,
         airline: {
           code: carrierCode,
           name: getAirlineName(carrierCode, carriers),

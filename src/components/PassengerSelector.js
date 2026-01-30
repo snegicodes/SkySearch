@@ -31,10 +31,10 @@ export default function PassengerSelector({
   useEffect(() => {
     if (anchorEl) {
       setTempCounts({
-        adults,
-        children,
-        infantsInSeat,
-        infantsOnLap,
+        adults: adults ?? 1,
+        children: children ?? 0,
+        infantsInSeat: infantsInSeat ?? 0,
+        infantsOnLap: infantsOnLap ?? 0,
       });
     }
   }, [anchorEl, adults, children, infantsInSeat, infantsOnLap]);
