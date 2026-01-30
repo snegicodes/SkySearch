@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   IconButton,
+  Badge,
   Stack,
   ToggleButton,
   ToggleButtonGroup,
@@ -24,6 +25,7 @@ import {
 } from "@mui/material";
 import {
   FilterList,
+  CompareArrows,
   ExpandMore,
   ExpandLess,
   SwapHoriz,
@@ -45,11 +47,13 @@ const CABIN_CLASSES = [
 ];
 
 /**
- * Result page header: search section matching landing page (trip type, passengers, cabin, from/to, dates) + theme, sidebar.
+ * Result page header: search section matching landing page (trip type, passengers, cabin, from/to, dates) + theme, sidebar, compare.
  */
 export default function ResultHeaderForm({
   onToggleSidebar,
   sidebarOpen,
+  onOpenCompare,
+  compareCount,
 }) {
   const router = useRouter();
   const theme = useTheme();
@@ -160,14 +164,14 @@ export default function ResultHeaderForm({
           >
             Modify search
           </Button>
-          <Button
+          {/* <Button
             size="small"
             onClick={() => setFormExpanded((e) => !e)}
             endIcon={formExpanded ? <ExpandLess /> : <ExpandMore />}
             sx={{ textTransform: "none", fontWeight: 600 }}
           >
             {origin || "From"} → {destination || "To"}
-          </Button>
+          </Button> */}
           {isMobile && (
             <IconButton
               onClick={onToggleSidebar}
@@ -192,10 +196,15 @@ export default function ResultHeaderForm({
               <FilterList />
             </IconButton>
           )}
+          <IconButton onClick={onOpenCompare} aria-label="Compare flights" size="small">
+            <Badge badgeContent={compareCount} color="primary">
+              <CompareArrows />
+            </Badge>
+          </IconButton>
         </Stack>
       </Toolbar>
 
-      <Collapse in={formExpanded}>
+      {/* <Collapse in={formExpanded}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Paper
             variant="outlined"
@@ -207,7 +216,6 @@ export default function ResultHeaderForm({
               borderRadius: 2,
             }}
           >
-            {/* Trip Type & Passengers & Cabin — same as landing page */}
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -279,7 +287,6 @@ export default function ResultHeaderForm({
 
             <Divider sx={{ my: 3, opacity: 0.5 }} />
 
-            {/* From & To with swap — same as landing page */}
             <Box sx={{ position: "relative", mb: 3 }}>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
@@ -336,7 +343,7 @@ export default function ResultHeaderForm({
               </Box>
             </Box>
 
-            {/* Dates — same as landing page */}
+
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -368,7 +375,7 @@ export default function ResultHeaderForm({
               )}
             </Stack>
 
-            {/* Submit — same label as landing */}
+
             <Button
               type="button"
               variant="contained"
@@ -388,7 +395,7 @@ export default function ResultHeaderForm({
             </Button>
           </Paper>
         </LocalizationProvider>
-      </Collapse>
+      </Collapse> */}
 
       <PassengerSelector
         adults={adults}

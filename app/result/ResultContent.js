@@ -7,6 +7,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { format } from "date-fns";
 import { useFlights } from "@/src/hooks/useFlights";
 import { useFiltersStore } from "@/src/store/filters.store";
+import { useCompareStore } from "@/src/store/compare.store";
 import { calculateBestScore } from "@/src/domain/flight";
 import useSearchStore from "@/src/store/search.store";
 import ResultHeaderForm from "@/src/components/ResultHeaderForm";
@@ -14,6 +15,7 @@ import FiltersSidebar from "@/src/components/FiltersSidebar";
 import SortingTabs from "@/src/components/SortingTabs";
 import PriceGraph from "@/src/components/PriceGraph";
 import FlightCard from "@/src/components/FlightCard";
+import CompareDrawer from "@/src/components/CompareDrawer";
 
 /**
  * Sync URL search params into search store so header form shows current search.
@@ -111,6 +113,9 @@ export default function ResultContent() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [compareOpen, setCompareOpen] = useState(false);
+
+  const { selectedFlights } = useCompareStore();
 
   useSyncSearchParams();
 
@@ -251,6 +256,8 @@ export default function ResultContent() {
         <ResultHeaderForm
           onToggleSidebar={() => setFiltersOpen((o) => !o)}
           sidebarOpen={filtersOpen}
+          onOpenCompare={() => setCompareOpen(true)}
+          compareCount={selectedFlights.length}
         />
       </Box>
 
@@ -314,6 +321,7 @@ export default function ResultContent() {
         </Container>
       </Box>
 
+      <CompareDrawer open={compareOpen} onClose={() => setCompareOpen(false)} />
     </Box>
   );
 }

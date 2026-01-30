@@ -6,6 +6,8 @@ import {
   Typography,
   Box,
   Chip,
+  Checkbox,
+  FormControlLabel,
   Stack,
 } from "@mui/material";
 import {
@@ -15,6 +17,7 @@ import {
   formatDate,
   getPriceConfidence,
 } from "@/src/domain/flight";
+import { useCompareStore } from "@/src/store/compare.store";
 
 const CONFIDENCE_LABELS = {
   low: "Low for this route",
@@ -29,11 +32,13 @@ const CONFIDENCE_COLORS = {
 };
 
 /**
- * Single flight card with price confidence.
+ * Single flight card with price confidence and compare checkbox.
  * @param {{ flight: object, allFlights: object[] }} props
  */
 export default function FlightCard({ flight, allFlights }) {
+  const { toggleFlight, isSelected } = useCompareStore();
   const confidence = getPriceConfidence(flight, allFlights);
+  const selected = isSelected(flight.id);
 
   return (
     <Card
@@ -41,7 +46,8 @@ export default function FlightCard({ flight, allFlights }) {
       sx={{
         mb: 2,
         borderWidth: 2,
-        borderColor: "divider",
+        borderColor: selected ? "primary.main" : "divider",
+        transition: "border-color 0.2s ease",
       }}
     >
       <CardContent>
@@ -70,6 +76,18 @@ export default function FlightCard({ flight, allFlights }) {
               />
             </Stack>
           </Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selected}
+                onChange={() => toggleFlight(flight)}
+                color="primary"
+                size="small"
+              />
+            }
+            label="Compare"
+            sx={{ mr: 0 }}
+          />
         </Box>
 
         <Stack
