@@ -112,7 +112,7 @@ export default function ResultContent() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [compareOpen, setCompareOpen] = useState(false);
 
   const { selectedFlights } = useCompareStore();
@@ -158,6 +158,20 @@ export default function ResultContent() {
     sortPreset,
     resetFilters,
   } = useFiltersStore();
+
+  // Reset filters when search params change (new search)
+  const searchKey = params ? `${params.from}-${params.to}-${params.date}` : null;
+  const prevSearchKeyRef = useRef(null);
+  useEffect(() => {
+    if (!searchKey) return;
+
+    // If this is a different search than before, reset filters
+    if (searchKey !== prevSearchKeyRef.current) {
+      resetFilters();
+    }
+    // Always update the ref to track current search
+    prevSearchKeyRef.current = searchKey;
+  }, [searchKey, resetFilters]);
 
   // When flights load, set price range to [min, max] if still default
   useEffect(() => {
