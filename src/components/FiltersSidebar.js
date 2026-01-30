@@ -161,6 +161,8 @@ export default function FiltersSidebar({ open, onClose, flights }) {
     </Box>
   );
 
+  const isDark = theme.palette.mode === "dark";
+
   return (
     <Drawer
       anchor={isMobile ? "bottom" : "left"}
@@ -173,6 +175,20 @@ export default function FiltersSidebar({ open, onClose, flights }) {
           maxHeight: isMobile ? "80vh" : "100%",
           borderTopLeftRadius: isMobile ? 16 : 0,
           borderTopRightRadius: isMobile ? 16 : 0,
+          // Glass drawer on mobile: explicit background so it's visible in light mode
+          ...(isMobile && {
+            backgroundColor: isDark
+              ? "rgba(30, 30, 30, 0.88)"
+              : "rgba(255, 255, 255, 0.94)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid",
+            borderBottom: "none",
+            borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)",
+            boxShadow: isDark
+              ? "0 -8px 32px rgba(0,0,0,0.4)"
+              : "0 -8px 32px rgba(0,0,0,0.12)",
+          }),
         },
       }}
     >
