@@ -1,0 +1,56 @@
+[
+  {
+    "id": "mock-1",
+    "airline": { "code": "AA", "name": "American Airlines" },
+    "price": { "amount": 189, "currency": "USD" },
+    "stops": 0,
+    "durationMinutes": 185,
+    "departure": { "airport": "JFK", "timestamp": 1739610000000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739619900000 }
+  },
+  {
+    "id": "mock-2",
+    "airline": { "code": "UA", "name": "United Airlines" },
+    "price": { "amount": 224, "currency": "USD" },
+    "stops": 1,
+    "durationMinutes": 320,
+    "departure": { "airport": "JFK", "timestamp": 1739620800000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739634000000 }
+  },
+  {
+    "id": "mock-3",
+    "airline": { "code": "DL", "name": "Delta Air Lines" },
+    "price": { "amount": 299, "currency": "USD" },
+    "stops": 0,
+    "durationMinutes": 330,
+    "departure": { "airport": "JFK", "timestamp": 1739606400000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739628600000 }
+  },
+  {
+    "id": "mock-4",
+    "airline": { "code": "B6", "name": "JetBlue Airways" },
+    "price": { "amount": 159, "currency": "USD" },
+    "stops": 0,
+    "durationMinutes": 305,
+    "departure": { "airport": "JFK", "timestamp": 1739613600000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739631900000 }
+  },
+  {
+    "id": "mock-5",
+    "airline": { "code": "WN", "name": "Southwest Airlines" },
+    "price": { "amount": 199, "currency": "USD" },
+    "stops": 1,
+    "durationMinutes": 380,
+    "departure": { "airport": "JFK", "timestamp": 1739624400000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739638200000 }
+  },
+  {
+    "id": "mock-6",
+    "airline": { "code": "AA", "name": "American Airlines" },
+    "price": { "amount": 275, "currency": "USD" },
+    "stops": 0,
+    "durationMinutes": 340,
+    "departure": { "airport": "JFK", "timestamp": 1739635200000 },
+    "arrival": { "airport": "LAX", "timestamp": 1739652600000 }
+  }
+]
