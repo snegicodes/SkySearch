@@ -2,7 +2,32 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
+  --skysearch-cyan: #00b4d8;
+  --skysearch-purple: #9333ea;
+  --skysearch-blue: #2563eb;
+  --skysearch-glow: rgba(0, 180, 216, 0.2);
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --grid-line: rgba(0, 0, 0, 0.04);
+  --grid-line-accent: rgba(0, 180, 216, 0.06);
+  --orb-cyan: rgba(0, 180, 216, 0.08);
+  --orb-purple: rgba(147, 51, 234, 0.04);
+}
+
+:root.dark {
+  --background: #05050b;
+  --foreground: #e8e8ed;
+  --skysearch-cyan: #00d4ff;
+  --skysearch-purple: #a855f7;
+  --skysearch-blue: #3b82f6;
+  --skysearch-glow: rgba(0, 212, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --grid-line: rgba(255, 255, 255, 0.06);
+  --grid-line-accent: rgba(0, 212, 255, 0.08);
+  --orb-cyan: rgba(0, 212, 255, 0.12);
+  --orb-purple: rgba(168, 85, 247, 0.06);
 }
 
 @theme inline {
@@ -12,15 +37,50 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Moving grid background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--grid-line) 1.5px, transparent 1.5px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 70%);
+  animation: grid-drift 25s ease-in-out infinite;
+}
+
+@keyframes grid-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(2px, -3px) scale(1.02); }
+  66% { transform: translate(-2px, 2px) scale(0.98); }
+}
+
+/* Hero gradient orb */
+.hero-orb {
+  position: absolute;
+  width: min(80vw, 600px);
+  height: min(80vw, 600px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--orb-cyan) 0%,
+    var(--orb-purple) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  animation: orb-float 20s ease-in-out infinite;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-45%, -55%) scale(1.1); opacity: 1; }
 }
