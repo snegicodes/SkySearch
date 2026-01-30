@@ -45,8 +45,8 @@ export default function FiltersSidebar({ open, onClose, flights }) {
       };
     }
     const prices = flights.map((f) => f.price?.amount ?? 0).filter(Boolean);
-    const minP = Math.min(...prices, 0);
-    const maxP = Math.max(...prices, 10000);
+    const minP = prices.length ? Math.min(...prices) : 0;
+    const maxP = prices.length ? Math.max(...prices) : 1000;
     const stops = [...new Set(flights.map((f) => f.stops ?? 0))].sort((a, b) => a - b);
     const airlines = [...new Set(flights.map((f) => f.airline?.code).filter(Boolean))];
     const nameByCode = {};
@@ -62,13 +62,13 @@ export default function FiltersSidebar({ open, onClose, flights }) {
   }, [flights]);
 
   const isDefault =
-    priceRange[0] === (flights?.length ? minPrice : 0) &&
-    priceRange[1] === (flights?.length ? maxPrice : 10000) &&
+    priceRange[0] === minPrice &&
+    priceRange[1] === maxPrice &&
     selectedStops.length === 0 &&
     selectedAirlines.length === 0;
 
   const handleReset = () => {
-    resetFilters(flights?.length ? [minPrice, maxPrice] : [0, 10000]);
+    resetFilters([minPrice, maxPrice]);
   };
 
   const content = (
