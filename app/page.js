@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "./components/ThemeToggle";
+import ScrollToSearch from "./components/ScrollToSearch";
+import SearchForm from "@/src/components/SearchForm";
 
 const LOGO_URL =
   "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo.png";
@@ -10,16 +12,18 @@ const LOGO_DARK_URL =
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      {/* Moving grid background */}
-      <div className="grid-bg" aria-hidden />
-      <div
-        className="hero-orb pointer-events-none"
-        style={{ top: "30%", left: "50%" }}
-        aria-hidden
-      />
+      {/* Hero section wrapper with backgrounds */}
+      <div className="relative">
+        {/* Moving grid background - only in hero */}
+        <div className="grid-bg" aria-hidden />
+        <div
+          className="hero-orb pointer-events-none"
+          style={{ top: "30%", left: "50%" }}
+          aria-hidden
+        />
 
-      {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-5 md:px-8 lg:px-12">
+        {/* Header */}
+        <header className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-5 md:px-8 lg:px-12">
         <Link
           href="/"
           className="flex items-center gap-2 text-lg font-semibold tracking-tight sm:text-xl"
@@ -44,12 +48,9 @@ export default function Home() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Link
-            href="/flight-search"
-            className="rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2.5 text-sm font-medium backdrop-blur-sm transition-all hover:border-[var(--teal)]/30 hover:bg-[var(--teal-muted)] sm:px-5"
-          >
+          <ScrollToSearch className="rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2.5 text-sm font-medium backdrop-blur-sm transition-all hover:border-[var(--teal)]/30 hover:bg-[var(--teal-muted)] sm:px-5">
             Get Started
-          </Link>
+          </ScrollToSearch>
         </div>
       </header>
 
@@ -70,10 +71,7 @@ export default function Home() {
             Compare prices, track deals, and book flights across hundreds of
             airlines—all in one place. Powered by real-time data.
           </p>
-          <Link
-            href="/flight-search"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--teal)] to-[var(--teal-dark)] px-8 py-4 text-base font-semibold text-white shadow-[0_0_24px_var(--teal-glow)] transition-all hover:opacity-90 hover:shadow-[0_0_32px_var(--teal-glow)] active:scale-[0.98] sm:text-lg"
-          >
+          <ScrollToSearch className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--teal)] to-[var(--teal-dark)] px-8 py-4 text-base font-semibold text-white shadow-[0_0_24px_var(--teal-glow)] transition-all hover:opacity-90 hover:shadow-[0_0_32px_var(--teal-glow)] active:scale-[0.98] sm:text-lg">
             Get Started
             <svg
               className="h-5 w-5"
@@ -88,8 +86,14 @@ export default function Home() {
                 d="M13 7l5 5m0 0l-5 5m5-5H6"
               />
             </svg>
-          </Link>
+          </ScrollToSearch>
         </div>
+      </section>
+      </div>
+
+      {/* Search section - separate from hero backgrounds */}
+      <section id="search-section" className="relative z-10 bg-[var(--background)]">
+        <SearchForm />
       </section>
     </div>
   );

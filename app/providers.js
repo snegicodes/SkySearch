@@ -5,7 +5,12 @@ import { MUIThemeProvider } from "@/src/providers/MUIThemeProvider";
 
 export function Providers({ children }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <ThemeProvider 
+      attribute="class" 
+      defaultTheme="dark" 
+      enableSystem
+      suppressHydrationWarning
+    >
       <MUIThemeProvider>{children}</MUIThemeProvider>
     </ThemeProvider>
   );

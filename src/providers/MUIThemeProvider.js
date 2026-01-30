@@ -3,11 +3,19 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useTheme as useNextTheme } from "next-themes";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 export function MUIThemeProvider({ children }) {
-  const { theme: nextTheme } = useNextTheme();
-  const isDark = nextTheme === "dark";
+  const { theme: nextTheme, resolvedTheme } = useNextTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // During SSR and initial render, use dark theme to match defaultTheme="dark"
+  // After mount, use the resolved theme from next-themes
+  const isDark = mounted && resolvedTheme ? resolvedTheme === "dark" : true;
 
   const theme = useMemo(
     () =>
