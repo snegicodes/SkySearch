@@ -8,9 +8,9 @@ import ScrollToSearch from "./components/ScrollToSearch";
 import SearchForm from "@/src/components/SearchForm";
 
 const LOGO_URL =
-  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo.png";
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo1.png";
 const LOGO_DARK_URL =
-  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark.png";
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark1.png";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },

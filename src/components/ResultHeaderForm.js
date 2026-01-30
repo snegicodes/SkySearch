@@ -33,9 +33,9 @@ import {
 } from "@mui/icons-material";
 
 const LOGO_URL =
-  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo.png";
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo1.png";
 const LOGO_DARK_URL =
-  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark.png";
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark1.png";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
