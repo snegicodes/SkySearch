@@ -2,7 +2,8 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useRef } from "react";
-import { Box, Container, Typography, Alert, CircularProgress } from "@mui/material";
+import { Box, Container, Typography, Alert, CircularProgress, Fab } from "@mui/material";
+import CompareIcon from "@mui/icons-material/Compare";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { format } from "date-fns";
 import { useFlights } from "@/src/hooks/useFlights";
@@ -336,6 +337,25 @@ export default function ResultContent() {
       </Box>
 
       <CompareDrawer open={compareOpen} onClose={() => setCompareOpen(false)} />
+
+      {selectedFlights.length === 2 && (
+        <Fab
+          color="primary"
+          variant="extended"
+          onClick={() => setCompareOpen(true)}
+          sx={{
+            position: "fixed",
+            right: 24,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: (theme) => theme.zIndex.speedDial,
+          }}
+          aria-label="Compare selected flights"
+        >
+          <CompareIcon sx={{ mr: 1 }} />
+          Compare Flights
+        </Fab>
+      )}
     </Box>
   );
 }
