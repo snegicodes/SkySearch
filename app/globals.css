@@ -1,33 +1,52 @@
 @import "tailwindcss";
 
+/* Use class-based dark mode (next-themes adds .dark to html) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Indicator colors only — use for status, alerts, icons (e.g. sun/moon) */
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --skysearch-cyan: #00b4d8;
-  --skysearch-purple: #9333ea;
-  --skysearch-blue: #2563eb;
-  --skysearch-glow: rgba(0, 180, 216, 0.2);
-  --glass-bg: rgba(0, 0, 0, 0.02);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --grid-line: rgba(0, 0, 0, 0.04);
-  --grid-line-accent: rgba(0, 180, 216, 0.06);
-  --orb-cyan: rgba(0, 180, 216, 0.08);
-  --orb-purple: rgba(147, 51, 234, 0.04);
+  --indicator-warning: #eab308;
+  --indicator-error: #dc2626;
+  --indicator-success: #16a34a;
 }
 
 :root.dark {
-  --background: #05050b;
-  --foreground: #e8e8ed;
-  --skysearch-cyan: #00d4ff;
-  --skysearch-purple: #a855f7;
-  --skysearch-blue: #3b82f6;
-  --skysearch-glow: rgba(0, 212, 255, 0.15);
+  --indicator-warning: #facc15;
+  --indicator-error: #ef4444;
+  --indicator-success: #22c55e;
+}
+
+/* Minimal teal theme — few shades, subtle presence */
+:root {
+  --background: #fafcfc;
+  --foreground: #0c1214;
+  --teal: #0d9488;
+  --teal-light: #2dd4bf;
+  --teal-dark: #0f766e;
+  --teal-muted: rgba(13, 148, 136, 0.12);
+  --teal-glow: rgba(13, 148, 136, 0.08);
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --grid-line: rgba(0, 0, 0, 0.03);
+  --grid-line-accent: rgba(13, 148, 136, 0.04);
+  --orb-teal: rgba(45, 212, 191, 0.06);
+  --gradient-bg: linear-gradient(165deg, #ffffff 0%, #fafcfc 50%, #f4f7f7 100%);
+}
+
+:root.dark {
+  --background: #0a0e10;
+  --foreground: #e6eaed;
+  --teal: #2dd4bf;
+  --teal-light: #5eead4;
+  --teal-dark: #14b8a6;
+  --teal-muted: rgba(45, 212, 191, 0.1);
+  --teal-glow: rgba(45, 212, 191, 0.12);
   --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --grid-line: rgba(255, 255, 255, 0.06);
-  --grid-line-accent: rgba(0, 212, 255, 0.08);
-  --orb-cyan: rgba(0, 212, 255, 0.12);
-  --orb-purple: rgba(168, 85, 247, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --grid-line-accent: rgba(45, 212, 191, 0.05);
+  --orb-teal: rgba(45, 212, 191, 0.08);
+  --gradient-bg: linear-gradient(165deg, #0a0e10 0%, #0d1215 40%, #0a0e10 100%);
 }
 
 @theme inline {
@@ -38,7 +57,7 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--gradient-bg);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100vh;
@@ -64,7 +83,7 @@ body {
   66% { transform: translate(-2px, 2px) scale(0.98); }
 }
 
-/* Hero gradient orb */
+/* Hero gradient orb — minimal teal */
 .hero-orb {
   position: absolute;
   width: min(80vw, 600px);
@@ -72,9 +91,8 @@ body {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    var(--orb-cyan) 0%,
-    var(--orb-purple) 40%,
-    transparent 70%
+    var(--orb-teal) 0%,
+    transparent 60%
   );
   filter: blur(60px);
   animation: orb-float 20s ease-in-out infinite;

@@ -1,5 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "./components/ThemeToggle";
+
+const LOGO_URL =
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762369/spotter/logo.png";
+const LOGO_DARK_URL =
+  "https://res.cloudinary.com/dmbd4gf0y/image/upload/v1769762760/spotter/logoDark.png";
 
 export default function Home() {
   return (
@@ -18,29 +24,29 @@ export default function Home() {
           href="/"
           className="flex items-center gap-2 text-lg font-semibold tracking-tight sm:text-xl"
         >
-          <span className="bg-gradient-to-r from-[var(--skysearch-cyan)] to-[var(--skysearch-purple)] bg-clip-text text-transparent">
-            SkySearch
-          </span>
-          <svg
-            className="h-5 w-5 text-[var(--skysearch-cyan)] sm:h-6 sm:w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={1.5}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-            />
-          </svg>
+          <Image
+            src={LOGO_URL}
+            alt="SkySearch"
+            width={210}
+            height={48}
+            className="h-12 w-auto sm:h-14 dark:hidden"
+            priority
+          />
+          <Image
+            src={LOGO_DARK_URL}
+            alt="SkySearch"
+            width={210}
+            height={48}
+            className="h-12 w-auto sm:h-14 hidden dark:block"
+            priority
+          />
         </Link>
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Link
             href="/flight-search"
-            className="rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2.5 text-sm font-medium backdrop-blur-sm transition-all hover:border-[var(--skysearch-cyan)]/40 hover:bg-[var(--skysearch-cyan)]/10 sm:px-5"
+            className="rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2.5 text-sm font-medium backdrop-blur-sm transition-all hover:border-[var(--teal)]/30 hover:bg-[var(--teal-muted)] sm:px-5"
           >
             Get Started
           </Link>
@@ -50,23 +56,23 @@ export default function Home() {
       {/* Hero section */}
       <section className="relative z-10 flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center px-4 pb-20 pt-8 text-center sm:px-6 md:min-h-[calc(100vh-6rem)] md:px-8 lg:px-12">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-[var(--skysearch-cyan)] opacity-90 sm:text-base">
+          <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-[var(--teal)] opacity-90 sm:text-base">
             Flight search, reimagined
           </p>
           <h1 className="mb-6 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="text-[var(--foreground)]">Find your next</span>
             <br />
-            <span className="bg-gradient-to-r from-[var(--skysearch-cyan)] via-[var(--skysearch-purple)] to-[var(--skysearch-blue)] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--teal)] via-[var(--teal-light)] to-[var(--teal-dark)] bg-clip-text text-transparent">
               destination
             </span>
           </h1>
-          <p className="mx-auto mb-10 max-w-xl text-base text-zinc-400 sm:text-lg md:mb-12 md:text-xl">
+          <p className="mx-auto mb-10 max-w-xl text-base text-[var(--foreground)]/70 sm:text-lg md:mb-12 md:text-xl">
             Compare prices, track deals, and book flights across hundreds of
             airlines—all in one place. Powered by real-time data.
           </p>
           <Link
             href="/flight-search"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--skysearch-cyan)] to-[var(--skysearch-purple)] px-8 py-4 text-base font-semibold text-black shadow-[0_0_40px_var(--skysearch-glow)] transition-all hover:opacity-90 hover:shadow-[0_0_50px_var(--skysearch-glow)] active:scale-[0.98] sm:text-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--teal)] to-[var(--teal-dark)] px-8 py-4 text-base font-semibold text-white shadow-[0_0_24px_var(--teal-glow)] transition-all hover:opacity-90 hover:shadow-[0_0_32px_var(--teal-glow)] active:scale-[0.98] sm:text-lg"
           >
             Get Started
             <svg
