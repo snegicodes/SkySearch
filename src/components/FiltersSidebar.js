@@ -1,0 +1,182 @@
+"use client";
+
+import {
+  Drawer,
+  Box,
+  Typography,
+  IconButton,
+  Slider,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Divider,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { useFiltersStore } from "@/src/store/filters.store";
+import { useMemo } from "react";
+
+/**
+ * Sidebar with price range, stops, and airlines. Persistent on desktop, bottom sheet on mobile.
+ * @param {{ open: boolean, onClose: () => void, flights: object[] }} props
+ */
+export default function FiltersSidebar({ open, onClose, flights }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const {
+    priceRange,
+    selectedStops,
+    selectedAirlines,
+    setPriceRange,
+    toggleStop,
+    toggleAirline,
+    resetFilters,
+  } = useFiltersStore();
+
+  const { minPrice, maxPrice, stopOptions, airlineOptions } = useMemo(() => {
+    if (!flights?.length) {
+      return {
+        minPrice: 0,
+        maxPrice: 1000,
+        stopOptions: [0, 1, 2],
+        airlineOptions: [],
+      };
+    }
+    const prices = flights.map((f) => f.price?.amount ?? 0).filter(Boolean);
+    const minP = Math.min(...prices, 0);
+    const maxP = Math.max(...prices, 10000);
+    const stops = [...new Set(flights.map((f) => f.stops ?? 0))].sort((a, b) => a - b);
+    const airlines = [...new Set(flights.map((f) => f.airline?.code).filter(Boolean))];
+    const nameByCode = {};
+    flights.forEach((f) => {
+      if (f.airline?.code) nameByCode[f.airline.code] = f.airline.name ?? f.airline.code;
+    });
+    return {
+      minPrice: minP,
+      maxPrice: maxP,
+      stopOptions: stops,
+      airlineOptions: airlines.map((code) => ({ code, name: nameByCode[code] ?? code })),
+    };
+  }, [flights]);
+
+  const isDefault =
+    priceRange[0] === (flights?.length ? minPrice : 0) &&
+    priceRange[1] === (flights?.length ? maxPrice : 10000) &&
+    selectedStops.length === 0 &&
+    selectedAirlines.length === 0;
+
+  const handleReset = () => {
+    resetFilters(flights?.length ? [minPrice, maxPrice] : [0, 10000]);
+  };
+
+  const content = (
+    <Box sx={{ p: 2, width: isMobile ? "100%" : 280 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 2,
+        }}
+      >
+        <Typography variant="h6" fontWeight={600}>
+          Filters
+        </Typography>
+        {!isMobile && (
+          <IconButton onClick={onClose} size="small" aria-label="Close filters">
+            <Close />
+          </IconButton>
+        )}
+      </Box>
+
+      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+        Price range
+      </Typography>
+      <Slider
+        value={priceRange}
+        onChange={(_, value) => setPriceRange(value)}
+        valueLabelDisplay="auto"
+        valueLabelFormat={(v) => `$${v}`}
+        min={minPrice}
+        max={maxPrice}
+        sx={{ mb: 2 }}
+      />
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
+        <Typography variant="body2">Min: ${priceRange[0]}</Typography>
+        <Typography variant="body2">Max: ${priceRange[1]}</Typography>
+      </Box>
+
+      <Divider sx={{ my: 2 }} />
+
+      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+        Stops
+      </Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5, mb: 2 }}>
+        {stopOptions.map((stop) => (
+          <FormControlLabel
+            key={stop}
+            control={
+              <Checkbox
+                checked={selectedStops.includes(stop)}
+                onChange={() => toggleStop(stop)}
+                size="small"
+              />
+            }
+            label={stop === 0 ? "Non-stop" : stop === 1 ? "1 stop" : `${stop} stops`}
+          />
+        ))}
+      </Box>
+
+      <Divider sx={{ my: 2 }} />
+
+      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+        Airlines
+      </Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5, mb: 3 }}>
+        {airlineOptions.map(({ code, name }) => (
+          <FormControlLabel
+            key={code}
+            control={
+              <Checkbox
+                checked={selectedAirlines.includes(code)}
+                onChange={() => toggleAirline(code)}
+                size="small"
+              />
+            }
+            label={`${name} (${code})`}
+          />
+        ))}
+      </Box>
+
+      <Button
+        variant="outlined"
+        fullWidth
+        onClick={handleReset}
+        disabled={isDefault}
+      >
+        Clear Filters
+      </Button>
+    </Box>
+  );
+
+  return (
+    <Drawer
+      anchor={isMobile ? "bottom" : "left"}
+      open={open}
+      onClose={onClose}
+      variant={isMobile ? "temporary" : "persistent"}
+      sx={{
+        "& .MuiDrawer-paper": {
+          width: isMobile ? "100%" : 280,
+          maxHeight: isMobile ? "80vh" : "100%",
+          borderTopLeftRadius: isMobile ? 16 : 0,
+          borderTopRightRadius: isMobile ? 16 : 0,
+        },
+      }}
+    >
+      {content}
+    </Drawer>
+  );
+}

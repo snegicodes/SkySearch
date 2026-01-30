@@ -2,6 +2,15 @@ import { fetchAmadeusFlights } from "@/src/api/amadeus";
 import { adaptAmadeusResponse } from "@/src/api/adaptFlight";
 import flightsMock from "@/src/mocks/flights.json";
 
+// YYYY-MM-DD
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+function isValidDateString(str) {
+  if (!str || typeof str !== "string") return false;
+  if (!DATE_REGEX.test(str.trim())) return false;
+  const d = new Date(str.trim());
+  return !isNaN(d.getTime());
+}
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const from =
@@ -29,6 +38,34 @@ export async function GET(request) {
     );
   }
 
+  if (!isValidDateString(date)) {
+    return Response.json(
+      { error: "Invalid date: use YYYY-MM-DD for departure date" },
+      { status: 400 }
+    );
+  }
+  if (returnDate && !isValidDateString(returnDate)) {
+    return Response.json(
+      { error: "Invalid returnDate: use YYYY-MM-DD" },
+      { status: 400 }
+    );
+  }
+
+  // Amadeus rejects past departure dates
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const depDate = new Date(date.trim());
+  depDate.setHours(0, 0, 0, 0);
+  if (depDate < today) {
+    return Response.json(
+      {
+        error:
+          "Departure date cannot be in the past. Amadeus requires a today or future date.",
+      },
+      { status: 400 }
+    );
+  }
+
   const clientId = process.env.AMADEUS_CLIENT_ID;
   const clientSecret = process.env.AMADEUS_CLIENT_SECRET;
 
@@ -41,15 +78,15 @@ export async function GET(request) {
   if (useAmadeus) {
     try {
       const params = {
-        originLocationCode: from.toUpperCase(),
-        destinationLocationCode: to.toUpperCase(),
-        departureDate: date,
-        returnDate: returnDate || undefined,
-        adults,
-        children,
-        infantsInSeat,
-        infantsOnLap,
-        travelClass: cabinClass,
+        originLocationCode: from.toUpperCase().trim(),
+        destinationLocationCode: to.toUpperCase().trim(),
+        departureDate: date.trim(),
+        returnDate: returnDate?.trim() || undefined,
+        adults: Math.max(1, adults),
+        children: Math.max(0, children),
+        infantsInSeat: Math.max(0, infantsInSeat),
+        infantsOnLap: Math.max(0, infantsOnLap),
+        travelClass: cabinClass?.trim() || undefined,
       };
       const response = await fetchAmadeusFlights(
         params,

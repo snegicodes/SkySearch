@@ -59,34 +59,47 @@ export async function fetchAmadeusFlights(params, clientId, clientSecret) {
   const token = await getAccessToken(clientId, clientSecret);
 
   const searchParams = new URLSearchParams({
-    originLocationCode: params.originLocationCode,
-    destinationLocationCode: params.destinationLocationCode,
-    departureDate: params.departureDate,
-    adults: String(params.adults ?? 1),
+    originLocationCode: String(params.originLocationCode).toUpperCase().trim(),
+    destinationLocationCode: String(params.destinationLocationCode).toUpperCase().trim(),
+    departureDate: String(params.departureDate).trim(),
+    adults: String(Math.max(1, parseInt(params.adults, 10) || 1)),
     max: "50",
   });
 
-  if (params.returnDate) {
-    searchParams.set("returnDate", params.returnDate);
+  // Optional: only add when present and valid
+  if (params.returnDate && String(params.returnDate).trim()) {
+    searchParams.set("returnDate", String(params.returnDate).trim());
   }
-  if (params.children) searchParams.set("children", String(params.children));
-  if (params.infantsInSeat)
-    searchParams.set("infantsInSeat", String(params.infantsInSeat));
-  if (params.infantsOnLap)
-    searchParams.set("infantsOnLap", String(params.infantsOnLap));
-  if (params.travelClass) searchParams.set("travelClass", params.travelClass);
+  const children = parseInt(params.children, 10) || 0;
+  if (children > 0) {
+    searchParams.set("children", String(children));
+  }
+  // Amadeus GET may support "infants" (combined); infantsInSeat/infantsOnLap are POST-only.
+  // Only add infants when > 0; omit if your Amadeus plan uses different param names.
+  const infantsInSeat = parseInt(params.infantsInSeat, 10) || 0;
+  const infantsOnLap = parseInt(params.infantsOnLap, 10) || 0;
+  const totalInfants = infantsInSeat + infantsOnLap;
+  if (totalInfants > 0) {
+    searchParams.set("infants", String(totalInfants));
+  }
+  if (params.travelClass && String(params.travelClass).trim()) {
+    searchParams.set("travelClass", String(params.travelClass).trim());
+  }
 
-  const res = await fetch(
-    `${BASE_URL}/v2/shopping/flight-offers?${searchParams}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const url = `${BASE_URL}/v2/shopping/flight-offers?${searchParams}`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
+  const text = await res.text();
   if (!res.ok) {
-    const text = await res.text();
+    console.error("Amadeus flight-offers response:", res.status, text);
     throw new Error(`Amadeus flight offers failed: ${res.status} ${text}`);
   }
 
-  return res.json();
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(`Amadeus invalid JSON: ${text.slice(0, 200)}`);
+  }
 }
