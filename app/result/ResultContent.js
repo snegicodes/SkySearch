@@ -336,7 +336,11 @@ export default function ResultContent() {
         </Container>
       </Box>
 
-      <CompareDrawer open={compareOpen} onClose={() => setCompareOpen(false)} />
+      <CompareDrawer
+        open={compareOpen}
+        onClose={() => setCompareOpen(false)}
+        allFlights={flights ?? []}
+      />
 
       {selectedFlights.length === 2 && (
         <Fab
