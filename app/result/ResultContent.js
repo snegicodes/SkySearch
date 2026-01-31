@@ -304,8 +304,9 @@ export default function ResultContent() {
 
               {filteredAndSortedFlights.length === 0 ? (
                 <Alert severity="info">
-                  No flights match your filters. Try adjusting price range, stops, or
-                  airlines.
+                  {flights.length === 0
+                    ? "No flights available for this search."
+                    : "No flights match your filters. Try adjusting price range, stops, or airlines."}
                 </Alert>
               ) : (
                 <Box>

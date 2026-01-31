@@ -1,6 +1,5 @@
 import { fetchAmadeusFlights } from "@/src/api/amadeus";
 import { adaptAmadeusResponse } from "@/src/api/adaptFlight";
-import flightsMock from "@/src/mocks/flights.json";
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 function isValidDateString(str) {
@@ -92,14 +91,12 @@ export async function GET(request) {
         clientSecret
       );
       const flights = adaptAmadeusResponse(response);
-      return Response.json({
-        flights: flights.length > 0 ? flights : flightsMock,
-      });
+      return Response.json({ flights });
     } catch (err) {
       console.error("Amadeus flights error:", err.message);
-      return Response.json({ flights: flightsMock });
+      return Response.json({ flights: [] });
     }
   }
 
-  return Response.json({ flights: flightsMock });
+  return Response.json({ flights: [] });
 }

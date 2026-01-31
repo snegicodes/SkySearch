@@ -59,6 +59,8 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
     };
   }, [flights]);
 
+  const noFlightsAvailable = !isLoading && (!flights || flights.length === 0);
+
   const isDefault =
     priceRange[0] === minPrice &&
     priceRange[1] === maxPrice &&
@@ -115,6 +117,7 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
         valueLabelFormat={(v) => `$${Number(v).toFixed(2)}`}
         min={minPrice}
         max={maxPrice}
+        disabled={noFlightsAvailable}
         sx={{ mb: 2 }}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
@@ -136,6 +139,7 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
                 checked={selectedStops.includes(stop)}
                 onChange={() => toggleStop(stop)}
                 size="small"
+                disabled={noFlightsAvailable}
               />
             }
             label={stop === 0 ? "Non-stop" : stop === 1 ? "1 stop" : `${stop} stops`}
@@ -157,6 +161,7 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
                 checked={selectedAirlines.includes(code)}
                 onChange={() => toggleAirline(code)}
                 size="small"
+                disabled={noFlightsAvailable}
               />
             }
             label={`${name} (${code})`}
@@ -168,7 +173,7 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
         variant="outlined"
         fullWidth
         onClick={handleReset}
-        disabled={isDefault}
+        disabled={isDefault || noFlightsAvailable}
       >
         Clear Filters
       </Button>
