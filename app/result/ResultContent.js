@@ -18,9 +18,6 @@ import PriceGraph from "@/src/components/PriceGraph";
 import FlightCard from "@/src/components/FlightCard";
 import CompareDrawer from "@/src/components/CompareDrawer";
 
-/**
- * Sync URL search params into search store so header form shows current search.
- */
 function useSyncSearchParams() {
   const searchParams = useSearchParams();
   const setStore = useSearchStore.getState();
@@ -58,9 +55,6 @@ function useSyncSearchParams() {
   }, [searchParams]);
 }
 
-/**
- * Build params for useFlights from URL.
- */
 function getParamsFromSearchParams(searchParams) {
   const from = searchParams.get("from");
   const to = searchParams.get("to");
@@ -79,9 +73,6 @@ function getParamsFromSearchParams(searchParams) {
   };
 }
 
-/**
- * Build params for useFlights from search store (fallback when URL is empty after client nav).
- */
 function getParamsFromStore() {
   const state = useSearchStore.getState();
   const { origin, destination, departureDate, returnDate, adults, children, infantsInSeat, infantsOnLap, cabinClass, tripType } = state;
@@ -120,12 +111,10 @@ export default function ResultContent() {
 
   useSyncSearchParams();
 
-  // Prefer URL params; fallback to search store so we have params immediately after client-side nav
   const paramsFromUrl = getParamsFromSearchParams(searchParams);
   const paramsFromStore = getParamsFromStore();
   const params = paramsFromUrl ?? paramsFromStore;
 
-  // When we used store fallback, sync URL once so refresh and address bar stay correct
   const hasReplacedUrl = useRef(false);
   useEffect(() => {
     if (paramsFromUrl) {
@@ -160,22 +149,18 @@ export default function ResultContent() {
     resetFilters,
   } = useFiltersStore();
 
-  // Reset filters and compare selection when search params change (new search)
   const searchKey = params ? `${params.from}-${params.to}-${params.date}` : null;
   const prevSearchKeyRef = useRef(null);
   useEffect(() => {
     if (!searchKey) return;
 
-    // If this is a different search than before, reset filters and clear compare
     if (searchKey !== prevSearchKeyRef.current) {
       resetFilters();
       useCompareStore.getState().clearSelection();
     }
-    // Always update the ref to track current search
     prevSearchKeyRef.current = searchKey;
   }, [searchKey, resetFilters]);
 
-  // When flights load, set price range to [min, max] if still default
   useEffect(() => {
     if (!flights?.length) return;
     const prices = flights.map((f) => f.price?.amount ?? 0).filter(Boolean);

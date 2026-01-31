@@ -57,12 +57,10 @@ export default function SearchForm() {
   const [passengerAnchorEl, setPassengerAnchorEl] = useState(null);
   const [minDate, setMinDate] = useState(null);
 
-  // Set minDate on client side only to avoid hydration mismatch
   useEffect(() => {
     setMinDate(new Date());
   }, []);
 
-  // Set default return date to +7 days from departure
   useEffect(() => {
     if (tripType === "round-trip" && departureDate && !returnDate) {
       const nextWeek = new Date(departureDate);
@@ -178,7 +176,6 @@ export default function SearchForm() {
           </Box>
 
           <Box component="form" onSubmit={handleSubmit}>
-            {/* Trip Type & Passengers & Cabin */}
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -256,7 +253,6 @@ export default function SearchForm() {
 
             <Divider sx={{ my: 3.5, opacity: 0.5 }} />
 
-            {/* Origin & Destination */}
             <Box sx={{ position: "relative", mb: 3 }}>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
@@ -284,7 +280,6 @@ export default function SearchForm() {
                 </Box>
               </Stack>
 
-              {/* Swap button - positioned absolutely between fields */}
               <Box
                 sx={{
                   position: "absolute",
@@ -317,7 +312,6 @@ export default function SearchForm() {
               </Box>
             </Box>
 
-            {/* Dates */}
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -355,7 +349,6 @@ export default function SearchForm() {
               )}
             </Stack>
 
-            {/* Submit */}
             <Button
               type="submit"
               variant="contained"

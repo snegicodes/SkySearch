@@ -39,10 +39,8 @@ export default function AirportAutocomplete({
   const [loading, setLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
-  // Sync selectedLocation when value prop changes (e.g., from URL or swap)
   useEffect(() => {
     if (value) {
-      // Update if value changed (different IATA code)
       if (!selectedLocation || selectedLocation.iataCode !== value) {
         setSelectedLocation({ iataCode: value, name: value });
         setInputValue(value);

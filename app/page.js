@@ -30,9 +30,7 @@ const stagger = {
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      {/* Hero section wrapper with backgrounds */}
       <div className="relative">
-        {/* Moving grid background - only in hero */}
         <div className="grid-bg" aria-hidden />
         <div
           className="hero-orb pointer-events-none"
@@ -40,7 +38,6 @@ export default function Home() {
           aria-hidden
         />
 
-        {/* Header */}
         <motion.header
           className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-5 md:px-8 lg:px-12"
           initial={{ opacity: 0 }}
@@ -77,7 +74,6 @@ export default function Home() {
           </div>
         </motion.header>
 
-        {/* Hero section */}
         <section className="relative z-10 flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center px-4 pb-20 pt-8 text-center sm:px-6 md:min-h-[calc(100vh-6rem)] md:px-8 lg:px-12">
           <motion.div
             className="mx-auto max-w-4xl"
@@ -130,7 +126,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Search section - separate from hero backgrounds */}
       <motion.section
         id="search-section"
         className="relative z-10 bg-[var(--background)]"

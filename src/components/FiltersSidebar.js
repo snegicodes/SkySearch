@@ -191,7 +191,6 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
           maxHeight: isMobile ? "80vh" : "100%",
           borderTopLeftRadius: isMobile ? 16 : 0,
           borderTopRightRadius: isMobile ? 16 : 0,
-          // Glass drawer on mobile: explicit background so it's visible in light mode
           ...(isMobile && {
             backgroundColor: isDark
               ? "rgba(30, 30, 30, 0.88)"

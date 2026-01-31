@@ -13,8 +13,6 @@ export function MUIThemeProvider({ children }) {
     setMounted(true);
   }, []);
 
-  // During SSR and initial render, use dark theme to match defaultTheme="dark"
-  // After mount, use the resolved theme from next-themes
   const isDark = mounted && resolvedTheme ? resolvedTheme === "dark" : true;
 
   const theme = useMemo(

@@ -2,7 +2,7 @@ const BASE_URL = "https://test.api.amadeus.com";
 
 let cachedToken = null;
 let tokenExpiresAt = 0;
-const TOKEN_BUFFER_MS = 60 * 1000; // refresh 60s before expiry
+const TOKEN_BUFFER_MS = 60 * 1000;
 
 
 async function getAccessToken(clientId, clientSecret) {
@@ -66,7 +66,6 @@ export async function fetchAmadeusFlights(params, clientId, clientSecret) {
     max: "50",
   });
 
-  // Optional: only add when present and valid
   if (params.returnDate && String(params.returnDate).trim()) {
     searchParams.set("returnDate", String(params.returnDate).trim());
   }
@@ -74,8 +73,6 @@ export async function fetchAmadeusFlights(params, clientId, clientSecret) {
   if (children > 0) {
     searchParams.set("children", String(children));
   }
-  // Amadeus GET may support "infants" (combined); infantsInSeat/infantsOnLap are POST-only.
-  // Only add infants when > 0; omit if your Amadeus plan uses different param names.
   const infantsInSeat = parseInt(params.infantsInSeat, 10) || 0;
   const infantsOnLap = parseInt(params.infantsOnLap, 10) || 0;
   const totalInfants = infantsInSeat + infantsOnLap;

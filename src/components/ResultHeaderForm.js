@@ -52,9 +52,6 @@ const CABIN_CLASSES = [
   { value: "FIRST", label: "First" },
 ];
 
-/**
- * Result page header: search section matching landing page (trip type, passengers, cabin, from/to, dates) + theme, sidebar, compare.
- */
 export default function ResultHeaderForm({
   onToggleSidebar,
   sidebarOpen,
@@ -158,6 +155,8 @@ export default function ResultHeaderForm({
         borderBottom: "1px solid",
         borderColor: "divider",
         color: "text.primary",
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
       }}
     >
       <Toolbar
@@ -169,7 +168,6 @@ export default function ResultHeaderForm({
           minHeight: { xs: 56, sm: 64 },
         }}
       >
-        {/* Left: logo + (modify + filter on mobile) / spacer (desktop) */}
         <Box
           sx={{
             flex: { xs: "1 1 0%", md: 1 },
@@ -240,7 +238,6 @@ export default function ResultHeaderForm({
           </Stack>
         </Box>
 
-        {/* Center (desktop only): Modify search */}
         <Box
           sx={{
             flex: 1,
@@ -260,7 +257,6 @@ export default function ResultHeaderForm({
           </Button>
         </Box>
 
-        {/* Right: theme, filters (desktop), compare */}
         <Stack
           direction="row"
           spacing={{ xs: 0, sm: 0.5 }}
@@ -299,199 +295,6 @@ export default function ResultHeaderForm({
           </IconButton>
         </Stack>
       </Toolbar>
-
-      {/* <Collapse in={formExpanded}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Paper
-            variant="outlined"
-            sx={{
-              mx: { xs: 2, md: 4 },
-              mb: 2,
-              p: { xs: 2, sm: 3 },
-              borderColor: "divider",
-              borderRadius: 2,
-            }}
-          >
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={2}
-              sx={{ mb: 3 }}
-              alignItems="stretch"
-            >
-              <ToggleButtonGroup
-                value={tripType}
-                exclusive
-                onChange={(e, newValue) => {
-                  if (newValue !== null) setTripType(newValue);
-                }}
-                aria-label="trip type"
-                sx={{
-                  width: { xs: "100%", sm: "auto" },
-                  height: 56,
-                  border: "1px solid",
-                  borderColor: "primary.main",
-                  borderRadius: 1,
-                }}
-              >
-                <ToggleButton
-                  value="one-way"
-                  sx={{ px: 3, flex: { xs: 1, sm: "0 0 auto" } }}
-                >
-                  One-way
-                </ToggleButton>
-                <ToggleButton
-                  value="round-trip"
-                  sx={{ px: 3, flex: { xs: 1, sm: "0 0 auto" } }}
-                >
-                  Round trip
-                </ToggleButton>
-              </ToggleButtonGroup>
-
-              <Button
-                variant="outlined"
-                onClick={(e) => setPassengerAnchorEl(e.currentTarget)}
-                sx={{
-                  width: { xs: "100%", sm: "auto" },
-                  justifyContent: "flex-start",
-                  px: 2.5,
-                  py: { xs: 2, sm: 1.5 },
-                  height: 56,
-                  minWidth: { sm: 200 },
-                }}
-              >
-                <Box component="span" sx={{ typography: "body2" }}>
-                  {getPassengerSummary()}
-                </Box>
-              </Button>
-
-              <FormControl sx={{ width: { xs: "100%", sm: 200 } }}>
-                <InputLabel>Cabin Class</InputLabel>
-                <Select
-                  value={cabinClass}
-                  onChange={(e) => setCabinClass(e.target.value)}
-                  label="Cabin Class"
-                  sx={{ height: 56 }}
-                >
-                  {CABIN_CLASSES.map((c) => (
-                    <MenuItem key={c.value} value={c.value}>
-                      {c.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Stack>
-
-            <Divider sx={{ my: 3, opacity: 0.5 }} />
-
-            <Box sx={{ position: "relative", mb: 3 }}>
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={2}
-                sx={{ position: "relative" }}
-              >
-                <Box sx={{ flex: 1 }}>
-                  <AirportAutocomplete
-                    label="From"
-                    value={origin}
-                    onChange={setOrigin}
-                    required
-                    placeholder="City or airport"
-                  />
-                </Box>
-                <Box sx={{ flex: 1 }}>
-                  <AirportAutocomplete
-                    label="To"
-                    value={destination}
-                    onChange={setDestination}
-                    required
-                    placeholder="City or airport"
-                  />
-                </Box>
-              </Stack>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  zIndex: 10,
-                }}
-              >
-                <IconButton
-                  onClick={handleSwap}
-                  sx={{
-                    bgcolor: "background.default",
-                    border: "2px solid",
-                    borderColor: "divider",
-                    width: 44,
-                    height: 44,
-                    "&:hover": {
-                      bgcolor: "background.default",
-                      borderColor: "primary.main",
-                      transform: "rotate(180deg)",
-                      transition: "all 0.3s ease",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <SwapHoriz />
-                </IconButton>
-              </Box>
-            </Box>
-
-
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={2}
-              sx={{ mb: 3 }}
-            >
-              <Box sx={{ flex: 1 }}>
-                <DatePicker
-                  label="Departure"
-                  value={departureDate}
-                  onChange={(newValue) => setDepartureDate(newValue)}
-                  minDate={minDate}
-                  slotProps={{
-                    textField: { required: true, fullWidth: true },
-                  }}
-                />
-              </Box>
-              {tripType === "round-trip" && (
-                <Box sx={{ flex: 1 }}>
-                  <DatePicker
-                    label="Return"
-                    value={returnDate}
-                    onChange={(newValue) => setReturnDate(newValue)}
-                    minDate={departureDate || minDate}
-                    slotProps={{
-                      textField: { required: true, fullWidth: true },
-                    }}
-                  />
-                </Box>
-              )}
-            </Stack>
-
-
-            <Button
-              type="button"
-              variant="contained"
-              size="large"
-              fullWidth
-              disabled={!canSearch}
-              onClick={handleSearch}
-              sx={{
-                py: 1.75,
-                fontSize: "1.05rem",
-                fontWeight: 600,
-                borderRadius: 2,
-                textTransform: "none",
-              }}
-            >
-              Search Flights
-            </Button>
-          </Paper>
-        </LocalizationProvider>
-      </Collapse> */}
 
       <PassengerSelector
         adults={adults}

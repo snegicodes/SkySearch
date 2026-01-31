@@ -1,8 +1,7 @@
 import { create } from "zustand";
 
 const useSearchStore = create((set) => ({
-  // Form state
-  tripType: "round-trip", // "one-way" | "round-trip"
+  tripType: "round-trip",
   origin: "",
   destination: "",
   departureDate: null,
@@ -11,9 +10,8 @@ const useSearchStore = create((set) => ({
   children: 0,
   infantsInSeat: 0,
   infantsOnLap: 0,
-  cabinClass: "ECONOMY", // ECONOMY | PREMIUM_ECONOMY | BUSINESS | FIRST
+  cabinClass: "ECONOMY",
 
-  // Actions
   setTripType: (tripType) => set({ tripType }),
   setOrigin: (origin) => set({ origin }),
   setDestination: (destination) => set({ destination }),
@@ -25,7 +23,6 @@ const useSearchStore = create((set) => ({
   setInfantsOnLap: (infantsOnLap) => set({ infantsOnLap }),
   setCabinClass: (cabinClass) => set({ cabinClass }),
 
-  // Reset form
   resetForm: () =>
     set({
       tripType: "round-trip",

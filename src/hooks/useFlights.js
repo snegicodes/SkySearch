@@ -2,24 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-/**
- * @typedef {Object} SearchParams
- * @property {string} from
- * @property {string} to
- * @property {string} date
- * @property {string} [returnDate]
- * @property {number} [adults]
- * @property {number} [children]
- * @property {number} [infantsInSeat]
- * @property {number} [infantsOnLap]
- * @property {string} [cabinClass]
- */
-
-/**
- * Fetch flights from /api/flights. No React Query in this project; simple state + fetch.
- * @param {SearchParams | null} params
- * @returns {{ data: import('@/src/domain/flight').Flight[] | null, isLoading: boolean, error: Error | null, refetch: () => void }}
- */
 export function useFlights(params) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(!!params);

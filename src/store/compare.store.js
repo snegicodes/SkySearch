@@ -1,11 +1,6 @@
 import { create } from "zustand";
 
-/**
- * Compare store: hold up to 2 flights for side-by-side comparison.
- * @typedef {import('@/src/domain/flight').Flight} Flight
- */
 export const useCompareStore = create((set, get) => ({
-  /** @type {Flight[]} */
   selectedFlights: [],
 
   toggleFlight: (flight) => {
@@ -22,7 +17,6 @@ export const useCompareStore = create((set, get) => ({
 
   clearSelection: () => set({ selectedFlights: [] }),
 
-  /** @param {string} flightId */
   isSelected: (flightId) =>
     get().selectedFlights.some((f) => f.id === flightId),
 }));

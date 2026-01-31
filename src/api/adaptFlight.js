@@ -1,8 +1,3 @@
-/**
- * Adapter: normalizes Amadeus API responses to our domain Flight shape.
- * Keeps the domain model stable if the API changes.
- * Amadeus often returns EUR; we convert to USD so the app shows everything in dollars.
- */
 const DEFAULT_EUR_TO_USD = 1.08;
 function getEurToUsd() {
   if (typeof process !== "undefined" && process.env?.EXCHANGE_RATE_EUR_USD) {
@@ -21,12 +16,10 @@ function parseDuration(duration) {
   return hours * 60 + minutes;
 }
 
-// Get airline name from carrier code using dictionary, fallback to code
 function getAirlineName(code, carriers) {
   return (carriers && carriers[code]) || code || "UNKNOWN";
 }
 
-// Adapt Amadeus flight-offers response to Flight[]
 export function adaptAmadeusResponse(response) {
   if (!response || !response.data || !Array.isArray(response.data)) {
     return [];
@@ -51,7 +44,6 @@ export function adaptAmadeusResponse(response) {
 
       let priceAmount = parseFloat(offer.price?.total) || 0;
       const rawCurrency = (offer.price?.currency || "USD").toUpperCase();
-      // Amadeus often returns EUR; convert to USD for consistent dollar display
       if (rawCurrency === "EUR") {
         priceAmount = priceAmount * getEurToUsd();
       }

@@ -1,12 +1,11 @@
 import { create } from "zustand";
 
-/** @type {'best' | 'cheapest' | 'fastest'} */
 const DEFAULT_SORT = "best";
 
 export const useFiltersStore = create((set) => ({
   priceRange: [0, 10000],
-  selectedStops: [], // e.g. [0, 1] = non-stop or 1 stop; empty = no filter
-  selectedAirlines: [], // airline codes; empty = no filter
+  selectedStops: [],
+  selectedAirlines: [],
   sortPreset: DEFAULT_SORT,
 
   setPriceRange: (priceRange) => set({ priceRange }),

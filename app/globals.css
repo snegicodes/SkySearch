@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
-/* Use class-based dark mode (next-themes adds .dark to html) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Indicator colors only — use for status, alerts, icons (e.g. sun/moon) */
 :root {
   --indicator-warning: #eab308;
   --indicator-error: #dc2626;
@@ -16,7 +14,6 @@
   --indicator-success: #22c55e;
 }
 
-/* Theme — primary #818cf8, dark base from palette */
 :root {
   --background: #f1f5f9;
   --foreground: #1e1b18;
@@ -64,7 +61,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Moving grid background */
 .grid-bg {
   position: absolute;
   inset: 0;
@@ -86,7 +82,6 @@ body {
   66% { transform: translate(-2px, 2px) scale(0.98); }
 }
 
-/* Hero gradient orb */
 .hero-orb {
   position: absolute;
   width: min(80vw, 600px);

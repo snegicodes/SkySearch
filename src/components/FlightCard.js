@@ -39,10 +39,6 @@ const CONFIDENCE_TOOLTIPS = {
   high: "This price is in the top 25% for this route — consider comparing other options.",
 };
 
-/**
- * Single flight card with price confidence and compare checkbox.
- * @param {{ flight: object, allFlights: object[] }} props
- */
 export default function FlightCard({ flight, allFlights }) {
   const { toggleFlight, isSelected } = useCompareStore();
   const confidence = getPriceConfidence(flight, allFlights);
@@ -101,10 +97,8 @@ export default function FlightCard({ flight, allFlights }) {
         </Box>
 
         <Box sx={{ mt: 3 }}>
-          {/* Mobile Compact Layout */}
           <Box sx={{ display: { xs: "block", sm: "none" } }}>
             <Stack direction="row" spacing={0} alignItems="center">
-              {/* Departure - Compact */}
               <Box sx={{ flexShrink: 0, minWidth: 70 }}>
                 <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mb: 0.5 }}>
                   <FlightTakeoff sx={{ fontSize: 14, color: "primary.main" }} />
@@ -120,7 +114,6 @@ export default function FlightCard({ flight, allFlights }) {
                 </Typography>
               </Box>
 
-              {/* Connecting Line - Compact */}
               <Box
                 sx={{
                   flex: 1,
@@ -133,7 +126,6 @@ export default function FlightCard({ flight, allFlights }) {
                   minWidth: 120,
                 }}
               >
-                {/* Duration and stops above line */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -149,7 +141,6 @@ export default function FlightCard({ flight, allFlights }) {
                   </Typography>
                 </Box>
 
-                {/* Line with airplane */}
                 <Box
                   sx={{
                     width: "100%",
@@ -158,7 +149,6 @@ export default function FlightCard({ flight, allFlights }) {
                     position: "relative",
                   }}
                 >
-                  {/* Left line */}
                   <Box
                     sx={{
                       flex: 1,
@@ -179,8 +169,7 @@ export default function FlightCard({ flight, allFlights }) {
                       },
                     }}
                   />
-                  
-                  {/* Airplane icon */}
+
                   <Flight
                     sx={{
                       fontSize: 20,
@@ -190,7 +179,6 @@ export default function FlightCard({ flight, allFlights }) {
                     }}
                   />
 
-                  {/* Right line */}
                   <Box
                     sx={{
                       flex: 1,
@@ -215,7 +203,6 @@ export default function FlightCard({ flight, allFlights }) {
                   />
                 </Box>
 
-                {/* Stops chip below line */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -246,7 +233,6 @@ export default function FlightCard({ flight, allFlights }) {
                 </Box>
               </Box>
 
-              {/* Arrival - Compact */}
               <Box sx={{ flexShrink: 0, minWidth: 70, textAlign: "right" }}>
                 <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="flex-end" sx={{ mb: 0.5 }}>
                   <Typography variant="caption" color="text.secondary" fontSize="0.65rem">
@@ -264,14 +250,12 @@ export default function FlightCard({ flight, allFlights }) {
             </Stack>
           </Box>
 
-          {/* Desktop Layout */}
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Stack
               direction="row"
               spacing={0}
               alignItems="stretch"
             >
-              {/* Departure */}
               <Box sx={{ flexShrink: 0, display: "flex", flexDirection: "column" }}>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
                   <FlightTakeoff sx={{ fontSize: 20, color: "primary.main" }} />
@@ -290,7 +274,6 @@ export default function FlightCard({ flight, allFlights }) {
                 </Typography>
               </Box>
 
-              {/* Connecting Line with Airplane - centered container */}
               <Box
                 sx={{
                   flex: 1,
@@ -303,7 +286,6 @@ export default function FlightCard({ flight, allFlights }) {
                   px: 3,
                 }}
               >
-                {/* Duration and stops - absolutely positioned above the line */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -336,7 +318,6 @@ export default function FlightCard({ flight, allFlights }) {
                   />
                 </Box>
 
-                {/* Line container - centered both vertically and horizontally */}
                 <Box
                   sx={{
                     width: "100%",
@@ -346,7 +327,6 @@ export default function FlightCard({ flight, allFlights }) {
                     position: "relative",
                   }}
                 >
-                  {/* Left line */}
                   <Box
                     sx={{
                       flex: 1,
@@ -367,8 +347,7 @@ export default function FlightCard({ flight, allFlights }) {
                       },
                     }}
                   />
-                  
-                  {/* Airplane icon */}
+
                   <Box
                     sx={{
                       position: "relative",
@@ -387,7 +366,6 @@ export default function FlightCard({ flight, allFlights }) {
                     />
                   </Box>
 
-                  {/* Right line */}
                   <Box
                     sx={{
                       flex: 1,
@@ -413,7 +391,6 @@ export default function FlightCard({ flight, allFlights }) {
                 </Box>
               </Box>
 
-              {/* Arrival */}
               <Box sx={{ flexShrink: 0, display: "flex", flexDirection: "column", textAlign: "right" }}>
                 <Stack
                   direction="row"
@@ -422,7 +399,6 @@ export default function FlightCard({ flight, allFlights }) {
                   justifyContent="flex-end"
                   sx={{ mb: 1 }}
                 >
-                  {/* Icon order adjusted for right alignment */}
                   <Typography 
                     variant="caption" 
                     color="text.secondary" 

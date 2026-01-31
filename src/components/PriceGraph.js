@@ -13,10 +13,6 @@ import {
 } from "recharts";
 import { formatPrice, formatTime } from "@/src/domain/flight";
 
-/**
- * Real-time price trend graph driven by filtered/sorted flights.
- * @param {{ flights: import('@/src/domain/flight').Flight[] }} props
- */
 export default function PriceGraph({ flights }) {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -38,14 +34,12 @@ export default function PriceGraph({ flights }) {
         return ta - tb;
       }) ?? [];
 
-  // Use index (1, 2, 3...) for X so ticks are evenly distributed
   const data = sorted.map((d, i) => ({ ...d, index: i + 1 }));
 
   const prices = data.map((d) => d.price).filter((p) => p > 0);
   const minPrice = prices.length ? Math.min(...prices) : 0;
   const maxPrice = prices.length ? Math.max(...prices) : 500;
 
-  // Nice Y domain: round up so axis shows equal intervals (e.g. 0, 100, 200, 300)
   const step = maxPrice <= 100 ? 25 : maxPrice <= 500 ? 50 : 100;
   const yMin = 0;
   const yMax = Math.max(Math.ceil(maxPrice / step) * step, step);

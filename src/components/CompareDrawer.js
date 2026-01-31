@@ -48,11 +48,6 @@ const CONFIDENCE_COLORS = {
   high: "warning",
 };
 
-/**
- * Compute which of the two flights wins each attribute (for "Best" badges).
- * @param {object[]} flights - Exactly 2 flights
- * @returns {{ bestPriceIdx: number | null, bestDurationIdx: number | null, bestStopsIdx: number | null }}
- */
 function getComparisonHighlights(flights) {
   if (flights?.length !== 2) return { bestPriceIdx: null, bestDurationIdx: null, bestStopsIdx: null };
   const [a, b] = flights;
@@ -70,10 +65,6 @@ function getComparisonHighlights(flights) {
   };
 }
 
-/**
- * Bottom drawer showing side-by-side comparison of up to 2 selected flights.
- * @param {{ open: boolean, onClose: () => void, allFlights?: object[] }} props
- */
 export default function CompareDrawer({ open, onClose, allFlights = [] }) {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
@@ -242,9 +233,6 @@ export default function CompareDrawer({ open, onClose, allFlights = [] }) {
   );
 }
 
-/**
- * Single flight detailed card when only one flight is selected.
- */
 function SingleFlightView({ flight, allFlights, onRemove, isSm }) {
   const confidence = getPriceConfidence(flight, allFlights);
   return (
@@ -324,9 +312,6 @@ function SingleFlightView({ flight, allFlights, onRemove, isSm }) {
   );
 }
 
-/**
- * Comparison table for desktop: rows = criteria, columns = Flight 1 | Flight 2.
- */
 function ComparisonTable({ flights, allFlights, highlights, onRemoveFlight }) {
   return (
     <TableContainer
@@ -477,9 +462,6 @@ function ComparisonTable({ flights, allFlights, highlights, onRemoveFlight }) {
   );
 }
 
-/**
- * Single flight card for mobile comparison view.
- */
 function ComparisonCard({
   flight,
   allFlights,

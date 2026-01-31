@@ -2,7 +2,6 @@ import { fetchAmadeusFlights } from "@/src/api/amadeus";
 import { adaptAmadeusResponse } from "@/src/api/adaptFlight";
 import flightsMock from "@/src/mocks/flights.json";
 
-// YYYY-MM-DD
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 function isValidDateString(str) {
   if (!str || typeof str !== "string") return false;
@@ -51,7 +50,6 @@ export async function GET(request) {
     );
   }
 
-  // Amadeus rejects past departure dates
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const depDate = new Date(date.trim());
