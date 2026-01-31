@@ -9,6 +9,7 @@ import {
   Checkbox,
   FormControlLabel,
   Stack,
+  Tooltip,
 } from "@mui/material";
 import { FlightTakeoff, FlightLand, Flight } from "@mui/icons-material";
 import {
@@ -30,6 +31,12 @@ const CONFIDENCE_COLORS = {
   low: "success",
   average: "default",
   high: "warning",
+};
+
+const CONFIDENCE_TOOLTIPS = {
+  low: "This price is in the lowest 25% for this route — a good deal.",
+  average: "This price is in the middle 50% for this route.",
+  high: "This price is in the top 25% for this route — consider comparing other options.",
 };
 
 /**
@@ -69,12 +76,14 @@ export default function FlightCard({ flight, allFlights }) {
               <Typography variant="h6" color="primary.main">
                 {formatPrice(flight.price)}
               </Typography>
-              <Chip
-                size="small"
-                label={CONFIDENCE_LABELS[confidence]}
-                color={CONFIDENCE_COLORS[confidence]}
-                variant="outlined"
-              />
+              <Tooltip title={CONFIDENCE_TOOLTIPS[confidence]} arrow placement="top">
+                <Chip
+                  size="small"
+                  label={CONFIDENCE_LABELS[confidence]}
+                  color={CONFIDENCE_COLORS[confidence]}
+                  variant="outlined"
+                />
+              </Tooltip>
             </Stack>
           </Box>
           <FormControlLabel
