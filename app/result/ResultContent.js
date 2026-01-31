@@ -281,6 +281,7 @@ export default function ResultContent() {
         open={filtersOpen}
         onClose={() => setFiltersOpen(false)}
         flights={flights ?? []}
+        isLoading={isLoading}
       />
 
       <Box sx={{ ml: mainMarginLeft, transition }}>

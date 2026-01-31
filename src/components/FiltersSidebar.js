@@ -10,6 +10,7 @@ import {
   Checkbox,
   Button,
   Divider,
+  CircularProgress,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -17,11 +18,8 @@ import { Close } from "@mui/icons-material";
 import { useFiltersStore } from "@/src/store/filters.store";
 import { useMemo } from "react";
 
-/**
- * Sidebar with price range, stops, and airlines. Persistent on desktop, bottom sheet on mobile.
- * @param {{ open: boolean, onClose: () => void, flights: object[] }} props
- */
-export default function FiltersSidebar({ open, onClose, flights }) {
+
+export default function FiltersSidebar({ open, onClose, flights, isLoading = false }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -91,6 +89,20 @@ export default function FiltersSidebar({ open, onClose, flights }) {
         )}
       </Box>
 
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: 200,
+            py: 4,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
       <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
         Price range
       </Typography>
@@ -160,6 +172,8 @@ export default function FiltersSidebar({ open, onClose, flights }) {
       >
         Clear Filters
       </Button>
+        </>
+      )}
     </Box>
   );
 
