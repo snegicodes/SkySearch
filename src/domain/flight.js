@@ -10,9 +10,10 @@
  */
 export function formatPrice(price) {
   if (!price || typeof price.amount !== "number") return "";
+  // Always display in dollars (Amadeus returns EUR; adapter converts; display as USD)
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: price.currency || "USD",
+    currency: "USD",
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   }).format(price.amount);

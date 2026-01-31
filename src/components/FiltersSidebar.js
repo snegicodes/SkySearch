@@ -100,14 +100,14 @@ export default function FiltersSidebar({ open, onClose, flights }) {
           setPriceRange(Array.isArray(value) ? value : [value, value])
         }
         valueLabelDisplay="auto"
-        valueLabelFormat={(v) => `$${v}`}
+        valueLabelFormat={(v) => `$${Number(v).toFixed(2)}`}
         min={minPrice}
         max={maxPrice}
         sx={{ mb: 2 }}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="body2">Min: ${priceRange[0]}</Typography>
-        <Typography variant="body2">Max: ${priceRange[1]}</Typography>
+        <Typography variant="body2">Min: ${Number(priceRange[0]).toFixed(2)}</Typography>
+        <Typography variant="body2">Max: ${Number(priceRange[1]).toFixed(2)}</Typography>
       </Box>
 
       <Divider sx={{ my: 2 }} />
